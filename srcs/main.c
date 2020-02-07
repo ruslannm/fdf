@@ -6,75 +6,73 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:15:31 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/05 18:46:31 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/07 18:40:51 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static int	ft_square_len(int nb, t_list *income)
+int		***ft_get_tab(t_list income, int height, int width)
 {
-	int		ret;
+	int	tab[2];
+	int 	i;
 
-	while (!(ret = ft_sqrt(nb)))
-		nb++;
-	if (ret < 4)
-		while (income)
-		{
-			if (ft_size_tetra((char *)income->content) > ret)
-				ret = ft_size_tetra((char *)income->content);
-			income = income->next;
-		}
-	return (ret);
+	tab = (int**)malloc(sizeof(int*) * (height + 1));
+	i = 0;
+	while (i < height)
+	{
+
+	}
+
 }
 
-int			ft_read(int fd, t_list **income, char *str, int i)
+int			ft_read(int fd, t_list **in_tab)
 {
-	int		err;
-	char	tet[17];
-	char	*tmp;
-	char	*buff_pos;
+	t_list	*income;
+	t_list	*tmp;
+	char	*str;
+	int width;
+	int width_temp;
+	int height;
 
-	err = ft_get_buff(fd, &str);
-	if (!err)
+	str = NULL;
+	width = 0;
+	height = 0;
+	while (get_next_line(fd, str))
 	{
-		tmp = str;
-		while (ft_get_) && !err)
-		{
-			if (++i % 5 != 4)
-			{
-				err = ft_check_tetra_line(buff_pos, tmp, &tet[(i % 5) * 4]);
-				if ((i + 1) % 5 == 4)
-					err = ft_check_tetra(tet, income);
-			}
-			else if (buff_pos != tmp)
-				err = -1;
-			tmp = buff_pos + 1;
-		}
+		width_temp = ft_strlen(str);
+    	tmp = ft_lstnew(str, width_temp);
+		ft_lstaddback(&income, tmp);
 		free(str);
+		if (width_temp > width)
+			width = width_temp;
+		height++;
 	}
-	return (err == -1 || (i + 2) % 5 != 0 ? -1 : (i + 2) / 5);
+	*in_tab = ft_get_tab(income, height, width); 
+	return (0);
 }
 
 int			main(int argc, char **argv)
 {
 	int		fd;
 	int		qnt;
-	t_list	*income;
+//	t_list	*income;
+	int		***in_tab;
 
 	if (argc == 2)
 	{
 		fd = open(argv[1], O_RDONLY);
-		income = NULL;
+		in_tab = NULL;
 		if (fd > 0)
 		{
-			qnt = ft_read(fd, &income, NULL, -1);
+			qnt = ft_read(fd, &in_tab);
 
 			if ((qnt = ft_read(fd, &income, NULL, -1)) < 0)
 				ft_putendl("error");
 			else
 				ft_solution(income, ft_square_len(qnt * 4, income), qnt);
 			ft_lstdel(&income, &ft_del);
+*/
 			close(fd);
 		}
 		else
@@ -82,5 +80,12 @@ int			main(int argc, char **argv)
 	}
 	else
 		ft_putendl("usage: ./fdf <filename>");
+	void		*mlx_ptr;
+	void		*win_ptr;
+
+	mlx_ptr = mlx_init();
+	win_ptr = mlx_new_window(mlx_ptr, 1000, 1000, "FDF");
+//	mlx_pixel_put()
+	mlx_loop(mlx_ptr);
 	return (0);
 }
