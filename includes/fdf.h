@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:16:01 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/16 10:50:33 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/16 14:06:52 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,19 @@
 # include "libft.h"
 # include "get_next_line.h"
 
-typedef struct		s_link
+typedef struct		s_fdf
 {
-	unsigned char	letter;
-	unsigned char	bit;
-	struct s_link	*left;
-	struct s_link	*right;
-	struct s_link	*up;
-	struct s_link	*down;
-	struct s_link	*root_top;
-	struct s_link	*root_side;
-}					t_link;
+	int 			**in_tab;
+	int				height;
+	int				width;
+	void			*mlx_ptr;
+	void			*win_ptr;
+	int				case_size;
+	int				z_size;
+}					t_fdf;
 
-typedef struct		s_stack
-{
-	struct s_link	*link;
-	struct s_stack	*next;
-}					t_stack;
+//void 	ft_bresenham(float h, float w, float h1, float w1, t_fdf *data);
+void	ft_read_argv(t_fdf *data, int argc, char **argv);
+void	ft_draw(t_fdf *data);
 
 #endif
