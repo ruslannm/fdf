@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 12:26:07 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/16 15:49:50 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/16 17:06:45 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,13 @@ int		ft_max(int x, int y)
 	return (x_abs < y_abs ? y_abs : x_abs);
 }
 
-void ft_projection(float *h, float *w, int z)
+void ft_projection(t_fdf *data, float *h, float *w, int z)
 {
-	*h = (*h + *w) * sin(0.8) - z;
-	*w = (*w - *h) * cos(0.8);
+	*h = (*h + *w) * sin(0.8) - z + data->height_shift;
+	*w = (*w - *h) * cos(0.8) + data->width_shift;
+	
+//	*h = (*h + *w) * sin(0.6) - z + shift/2;
+//	*w = (*w - *h) * cos(0.6) + shift;
 }
 
 void	ft_bresenham(float *pixel, float *pixel1, t_fdf *data)
@@ -44,11 +47,11 @@ void	ft_bresenham(float *pixel, float *pixel1, t_fdf *data)
 	tmp[0] = pixel[0];
 	tmp[1] = pixel[1];
 	tmp[2] = pixel[2];
-	color = (tmp[2] ? 0xe80c0c : 0xffffff);
+	color = (tmp[2] || pixel1[2] ? 0xe80c0c : 0xffffff);
+	ft_projection(data, &tmp[0], &tmp[1], (int)tmp[2]);
+	ft_projection(data, &pixel1[0], &pixel1[1], (int)pixel1[2]);
 	h_step = pixel1[0] - tmp[0];
 	w_step = pixel1[1] - tmp[1];
-	ft_projection(&tmp[0], &tmp[1], (int)tmp[2]);
-	ft_projection(&pixel1[0], &pixel1[1], (int)pixel1[2]);
 	max = ft_max(h_step, w_step);
 	h_step = h_step / max;
 	w_step = w_step / max;

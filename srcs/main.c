@@ -6,11 +6,39 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:15:31 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/16 14:05:09 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/16 18:04:11 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+int ft_key(int key, t_fdf *data)
+{
+    //int shift;
+
+  //  ft_putnbr(key);
+//	write(1, "\n", 1);
+    if (126 == key)
+		data->height_shift -= 10;
+    else if (125 == key)
+		data->height_shift += 10;
+    if (123 == key)
+		data->width_shift -= 10;
+    else if (124 == key)
+		data->width_shift += 10;
+	else if (53 == key)
+	{
+		data->close = 1;
+		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+		return (0);
+	}
+	if (key > 122 && key < 127)
+	{
+		mlx_clear_window(data->mlx_ptr, data->win_ptr);
+		ft_draw(data);
+	}
+    return (0);
+}
 
 int		*ft_getstr_int(char *str, int width)
 {
@@ -131,10 +159,13 @@ int			main(int argc, char **argv)
 			else
 			{
 				data->mlx_ptr = mlx_init();
-				data->win_ptr = mlx_new_window(data->mlx_ptr, 1000, 1000, "FDF");
+				data->win_ptr = mlx_new_window(data->mlx_ptr, 1000, 1000, "fdf");
 				ft_draw(data);
-//				ft_bresenham(10, 10, 600, 300, data);
+				mlx_key_hook(data->win_ptr, ft_key, data);
+				if (data->close)
+					return(0);
 				mlx_loop(data->mlx_ptr);
+	//			mlx_loop_hook(data->mlx_ptr, ft_key, data);
 //				ft_putendl("ok");
 //				ft_print_tab(data);
 			}
