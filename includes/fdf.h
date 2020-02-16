@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:16:01 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/16 14:06:52 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/16 15:45:41 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define FDF_H
 
 # include "mlx.h"
+# include <math.h>
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
