@@ -6,14 +6,14 @@
 #    By: rgero <rgero@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/13 15:46:56 by rgero             #+#    #+#              #
-#    Updated: 2020/02/07 17:00:17 by rgero            ###   ########.fr        #
+#    Updated: 2020/02/16 11:14:15 by rgero            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fdf
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 FRAMEWORKS = -framework OpenGL -framework AppKit
 
 SRC_PATH = ./srcs/
@@ -22,7 +22,7 @@ SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 
 OBJ_PATH = ./srcs/
 OBJ_NAME = $(SRC_NAME:.c=.o)
-OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
+OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))cd 
 
 INC_PATH = ./libft/ ./minilibx_macos/ ./includes
 INC = $(addprefix -I, $(INC_PATH))

@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:16:01 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/07 16:46:23 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/16 10:50:33 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include "libft.h"
-# define BUFF_SIZE 546
+# include "get_next_line.h"
 
 typedef struct		s_link
 {

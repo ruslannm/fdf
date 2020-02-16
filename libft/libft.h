@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/08 16:57:15 by rgero             #+#    #+#             */
-/*   Updated: 2020/01/25 14:14:19 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/16 10:53:00 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,6 @@ void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 t_list				*ft_strsplit_tolst(char const *s, char c);
 char				*ft_strcjoin(char const *s1, char c);
+void				ft_lstaddback(t_list **alst, t_list *new);
 
 #endif
