@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:15:31 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/16 18:04:11 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/17 14:50:14 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,8 @@ int ft_key(int key, t_fdf *data)
 		data->width_shift += 10;
 	else if (53 == key)
 	{
-		data->close = 1;
 		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-		return (0);
+		exit (0);
 	}
 	if (key > 122 && key < 127)
 	{
