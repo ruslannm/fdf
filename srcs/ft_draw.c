@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 12:26:07 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/18 18:18:33 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/18 19:05:10 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ void	ft_rotate(t_fdf *data)
 {
 	int		i;
 	int		j;
-	float	p[3];
-	t_tab	tab;
 
 	i = 0;
 	while (i < data->height)
@@ -49,22 +47,25 @@ void	ft_rotate(t_fdf *data)
 		j = 0;
 		while (j < data->width)
 		{
-			tab = data->tab[i][j];
-			p[0] = tab.pixel[0];
-			p[1] = tab.pixel[1];
-			p[2] = tab.pixel[2];
 			if (data->x_angle)
 			{
-				data->tab[i][j].pixel[1] = ft_get_mulmatrix(data->x_angle, p[1], p[2], -1);
-				data->tab[i][j].pixel[2] = ft_get_mulmatrix(data->x_angle, p[2], p[1], 1);
+				data->tab[i][j].pixel[1] = ft_get_mulmatrix(data->x_angle, data->tab[i][j].pixel[1], data->tab[i][j].pixel[2], -1);
+				data->tab[i][j].pixel[2] = ft_get_mulmatrix(data->x_angle, data->tab[i][j].pixel[2], data->tab[i][j].pixel[1], 1);
 				data->x_angle = 0;
 			}
 			if (data->y_angle)
 			{
-				data->tab[i][j].pixel[0] = ft_get_mulmatrix(data->y_angle, p[0], p[2], 1);
-				data->tab[i][j].pixel[2] = ft_get_mulmatrix(data->y_angle, p[2], p[0], -1);
-				data->x_angle = 0;
+				data->tab[i][j].pixel[0] = ft_get_mulmatrix(data->y_angle, data->tab[i][j].pixel[0], data->tab[i][j].pixel[2], 1);
+				data->tab[i][j].pixel[2] = ft_get_mulmatrix(data->y_angle, data->tab[i][j].pixel[2], data->tab[i][j].pixel[0], -1);
+				data->y_angle = 0;
 			}
+			if (data->z_angle)
+			{
+				data->tab[i][j].pixel[0] = ft_get_mulmatrix(data->z_angle, data->tab[i][j].pixel[0], data->tab[i][j].pixel[1], -1);
+				data->tab[i][j].pixel[2] = ft_get_mulmatrix(data->z_angle, data->tab[i][j].pixel[1], data->tab[i][j].pixel[0], 1);
+				data->z_angle = 0;
+			}
+
 
 /*			if (data->y_angle)
 			{
@@ -127,8 +128,8 @@ void	ft_bresenham(float *pixel, float *pixel1, t_fdf *data)
 	tmp[1] = pixel[1];
 	tmp[2] = pixel[2];
 	color = (tmp[2] || pixel1[2] ? 0xe80c0c : 0xffffff);
-	//ft_projection(data, &tmp[0], &tmp[1], (int)tmp[2]);
-	//ft_projection(data, &pixel1[0], &pixel1[1], (int)pixel1[2]);
+	ft_projection(data, &tmp[0], &tmp[1], (int)tmp[2]);
+	ft_projection(data, &pixel1[0], &pixel1[1], (int)pixel1[2]);
 	h_step = pixel1[0] - tmp[0];
 	w_step = pixel1[1] - tmp[1];
 	max = ft_max(h_step, w_step);
