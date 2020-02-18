@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 12:26:07 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/18 16:49:27 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/18 18:18:33 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,69 @@ int		ft_max(int x, int y)
 	y_abs = ft_abs(y);
 	return (x_abs < y_abs ? y_abs : x_abs);
 }
-/*
+
+float	ft_get_mulmatrix(float angle, float a, float b, int sign)
+{
+	float	ret;
+
+	ret = cos(angle) * a + sign * sin(angle) * b;
+	return (ret);
+}
+
+
 void	ft_rotate(t_fdf *data)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
+	float	p[3];
+	t_tab	tab;
 
+	i = 0;
+	while (i < data->height)
+	{
+		j = 0;
+		while (j < data->width)
+		{
+			tab = data->tab[i][j];
+			p[0] = tab.pixel[0];
+			p[1] = tab.pixel[1];
+			p[2] = tab.pixel[2];
+			if (data->x_angle)
+			{
+				data->tab[i][j].pixel[1] = ft_get_mulmatrix(data->x_angle, p[1], p[2], -1);
+				data->tab[i][j].pixel[2] = ft_get_mulmatrix(data->x_angle, p[2], p[1], 1);
+				data->x_angle = 0;
+			}
+			if (data->y_angle)
+			{
+				data->tab[i][j].pixel[0] = ft_get_mulmatrix(data->y_angle, p[0], p[2], 1);
+				data->tab[i][j].pixel[2] = ft_get_mulmatrix(data->y_angle, p[2], p[0], -1);
+				data->x_angle = 0;
+			}
 
-}
+/*			if (data->y_angle)
+			{
+				data->tab[i][j].pixel[0] = cos(data->y_angle) * data->tab[i][j].pixel[0] +\
+				sin(data->x_angle) * data->tab[i][j].pixel[2];
+				data->tab[i][j].pixel[2] = sin(data->x_angle) * data->tab[i][j].pixel[1] +\
+				cos(data->x_angle) * data->tab[i][j].pixel[2];
+				data->y_angle = 0;
+			}
+			if (data->z_angle)
+			{
+				data->tab[i][j].pixel[1] = cos(data->x_angle) * data->tab[i][j].pixel[1] -\
+				sin(data->x_angle) * data->tab[i][j].pixel[2];
+				data->tab[i][j].pixel[2] = sin(data->x_angle) * data->tab[i][j].pixel[1] +\
+				cos(data->x_angle) * data->tab[i][j].pixel[2];
+				data->z_angle = 0;
+			}
 */
+
+			j++;
+		}
+		i++;
+	}
+}
 
 void ft_projection1(t_fdf *data, float *h, float *w, int z)
 {
@@ -56,8 +110,9 @@ void ft_projection(t_fdf *data, float *h, float *w, int z)
 	c[0] = (a[0] * sqrt(3) - a[2] * sqrt(3)) / sqrt(6);
 	c[1] = (a[0] + 2 * a[1] + a[2]) / sqrt(6);
 	c[2] = (a[0] * sqrt(2) - a[1] * sqrt(2) + a[2] * sqrt(2)) / sqrt(6);
-	*h = c[0] + data->height_shift;
+	*h = c[0];
 	*w = c[1];
+	data->x_angle = 0;
 }
 
 void	ft_bresenham(float *pixel, float *pixel1, t_fdf *data)
@@ -72,8 +127,8 @@ void	ft_bresenham(float *pixel, float *pixel1, t_fdf *data)
 	tmp[1] = pixel[1];
 	tmp[2] = pixel[2];
 	color = (tmp[2] || pixel1[2] ? 0xe80c0c : 0xffffff);
-	ft_projection(data, &tmp[0], &tmp[1], (int)tmp[2]);
-	ft_projection(data, &pixel1[0], &pixel1[1], (int)pixel1[2]);
+	//ft_projection(data, &tmp[0], &tmp[1], (int)tmp[2]);
+	//ft_projection(data, &pixel1[0], &pixel1[1], (int)pixel1[2]);
 	h_step = pixel1[0] - tmp[0];
 	w_step = pixel1[1] - tmp[1];
 	max = ft_max(h_step, w_step);
@@ -110,54 +165,52 @@ void	ft_get_pixel(t_fdf *data, float *pixel, float *pixel1, int type)
 }
 */
 
-void	ft_get_pixel(t_fdf *data, float *pixel, float *pixel1, int type)
+void	ft_get_pixel(t_fdf *data, int *point, float *pixel1, int type)
 {
 	if (-1 == type)
 	{
-		pixel1[2] = data->in_tab[(int)pixel[0]][(int)pixel[1]] * data->z_size;
-		pixel1[0] = pixel[0] * data->case_size;
-		pixel1[1] = pixel[1] * data->case_size;
+		pixel1[0] = data->tab[point[0]][point[1]].pixel[0];
+		pixel1[1] = data->tab[point[0]][point[1]].pixel[1];
+		pixel1[2] = data->tab[point[0]][point[1]].pixel[2];
 	}
 	else if (0 == type)
 	{
-		pixel1[2] = data->in_tab[(int)pixel[0] + 1][(int)pixel[1]] * data->z_size;
-		pixel1[0] = (pixel[0] + 1) * data->case_size;
-		pixel1[1] = pixel[1] * data->case_size;
+		pixel1[0] = data->tab[point[0] + 1][point[1]].pixel[0];
+		pixel1[1] = data->tab[point[0]][point[1]].pixel[1];
+		pixel1[2] = data->tab[point[0]][point[1]].pixel[2];
 	}
 	else if (1 == type)
 	{
-		pixel1[2] = data->in_tab[(int)pixel[0]][(int)pixel[1] + 1] * data->z_size;
-		pixel1[0] = pixel[0] * data->case_size;
-		pixel1[1] = (pixel[1] + 1) * data->case_size;
+		pixel1[0] = data->tab[point[0]][point[1]].pixel[0];
+		pixel1[1] = data->tab[point[0]][point[1] + 1].pixel[1];
+		pixel1[2] = data->tab[point[0]][point[1]].pixel[2];
 	}
 }
-
-
 
 void	ft_draw(t_fdf *data)
 {
 	float	pixel[4][3];
+	int		point[2];
 
-	pixel[0][0] = 0;
-	while (pixel[0][0] < data->height)
+	point[0] = 0;
+	while (point[0] < data->height)
 	{
-		pixel[0][1] = 0;
-//		pixel[0][2] = data->in_tab[pixel[0][0]][pixel[0][1]] * data->z_size;
-		while (pixel[0][1] < data->width)
+		point[1] = 0;
+		while (point[1] < data->width)
 		{
-			ft_get_pixel(data, pixel[0], pixel[1], -1);
-			if (pixel[0][0] < data->height - 1)
+			ft_get_pixel(data, point, pixel[1], -1);
+			if (point[0] < data->height - 1)
 			{
-				ft_get_pixel(data, pixel[0], pixel[2], 0);
+				ft_get_pixel(data, point, pixel[2], 0);
 				ft_bresenham(pixel[1], pixel[2], data);
 			}
-			if (pixel[0][1] < data->width - 1)
+			if (point[1] < data->width - 1)
 			{
-				ft_get_pixel(data, pixel[0], pixel[3], 1);
+				ft_get_pixel(data, point, pixel[3], 1);
 				ft_bresenham(pixel[1], pixel[3], data);
 			}
-			pixel[0][1] = pixel[0][1] + 1;
+			point[1] = point[1] + 1;
 		}
-		pixel[0][0] = pixel[0][0] + 1;
+		point[0] = point[0] + 1;
 	}
 }

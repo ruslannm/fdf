@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:15:31 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/18 16:45:05 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/18 18:47:21 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,13 @@ void		ft_get_tab(t_fdf *data)
 	i = 0;
 	while (i < data->height)
 	{
-		tab[i] = (t_tab*)malloc(sizeof(t_tab) * (data->height + 1));
+		tab[i] = (t_tab*)malloc(sizeof(t_tab) * (data->width + 1));
 		j = 0;
 		while (j < data->width)
 		{
-			tab[i][j].pixel[0] = i * data->case_size + data->height_shift;
-			tab[i][j].pixel[1] = j * data->case_size + data->width_shift;
-			tab[i][j].pixel[2] = data->in_tab[i][j] * data->z_size;
+			tab[i][j].pixel[0] = (float)(i * data->case_size + data->height_shift);
+			tab[i][j].pixel[1] = (float)(j * data->case_size + data->width_shift);
+			tab[i][j].pixel[2] = (float)(data->in_tab[i][j] * data->z_size);
 			j++;
 		}
 		i++;
@@ -143,6 +143,7 @@ void		ft_read(int fd, t_fdf **data)
 		(*data)->height = (*data)->height + 1;
 	}
 	ft_get_in_tab(income, *data); 
+	ft_rotate(*data);
 	close(fd);
 }
 
@@ -157,8 +158,29 @@ void	ft_print_tab(t_fdf *data)
 		w = 0;
 		while (w < data->width)
 		{
-			ft_putnbr(data->in_tab[h][w++]);
+			ft_putnbr(data->in_tab[h][w]);
 			ft_putchar(' ');
+			w++;
+		}
+		write(1, "\n", 1);
+		h++;
+	}
+
+
+
+	h = 0;
+	while (h < data->height)
+	{
+		w = 0;
+		while (w < data->width)
+		{
+			ft_putnbr(data->tab[h][w].pixel[0]);
+			ft_putchar('*');
+			ft_putnbr(data->tab[h][w].pixel[1]);
+			ft_putchar('*');
+			ft_putnbr(data->tab[h][w].pixel[2]);
+			ft_putchar(' ');
+			w++;
 		}
 		write(1, "\n", 1);
 		h++;
@@ -177,22 +199,18 @@ int			main(int argc, char **argv)
 		data = (t_fdf*)malloc(sizeof(t_fdf));
 		if (fd > 0 && data)
 		{
-			ft_read(fd, &data);
 			ft_read_argv(data, argc, argv);
+			ft_read(fd, &data);
 			if (data->height <= 0)
 				ft_putendl("error");
 			else
 			{
+				ft_print_tab(data);
 				data->mlx_ptr = mlx_init();
 				data->win_ptr = mlx_new_window(data->mlx_ptr, 1000, 1000, "fdf");
 				ft_draw(data);
 				mlx_key_hook(data->win_ptr, ft_key, data);
-				if (data->close)
-					return(0);
 				mlx_loop(data->mlx_ptr);
-	//			mlx_loop_hook(data->mlx_ptr, ft_key, data);
-//				ft_putendl("ok");
-//				ft_print_tab(data);
 			}
 		}
 		else

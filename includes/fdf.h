@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:16:01 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/18 16:29:50 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/18 18:13:49 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@
 # include "libft.h"
 # include "get_next_line.h"
 
-typedef	struct 	s_tab
+typedef	struct 		s_tab
 {
-	float	pixel[3];
-}				t_tab;
+	float			pixel[3];
+}					t_tab;
 
 typedef struct		s_fdf
 {
@@ -38,12 +38,15 @@ typedef struct		s_fdf
 	int				z_size;
 	int				height_shift;
 	int				width_shift;
-	int				close;
+	float			x_angle;
+	float			y_angle;
+	float			z_angle;
 }					t_fdf;
 
 
 //void 	ft_bresenham(float h, float w, float h1, float w1, t_fdf *data);
 void	ft_read_argv(t_fdf *data, int argc, char **argv);
 void	ft_draw(t_fdf *data);
+void	ft_rotate(t_fdf *data);
 
 #endif

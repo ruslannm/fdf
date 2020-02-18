@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 18:00:01 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/16 17:48:35 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/18 18:16:44 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,7 @@ void ft_read_argv(t_fdf *data, int argc, char **argv)
     }
     data->height_shift = 150;
     data->width_shift = 150;
-    data->close = 0;
+    data->x_angle = 0;//0.6;
+    data->y_angle = 0;//0.6;
+    data->z_angle = 0;//0.6;
 };
