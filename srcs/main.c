@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:15:31 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/17 14:50:14 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/18 16:45:05 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,36 @@ int		*ft_getstr_int(char *str, int width)
 	return (ret);
 }
 
+void		ft_get_tab(t_fdf *data)
+{
+	t_tab	**tab;
+	int 	i;
+	int		j;
+
+	tab = (t_tab**)malloc(sizeof(t_tab*) * (data->height + 1));
+	i = 0;
+	while (i < data->height)
+	{
+		tab[i] = (t_tab*)malloc(sizeof(t_tab) * (data->height + 1));
+		j = 0;
+		while (j < data->width)
+		{
+			tab[i][j].pixel[0] = i * data->case_size + data->height_shift;
+			tab[i][j].pixel[1] = j * data->case_size + data->width_shift;
+			tab[i][j].pixel[2] = data->in_tab[i][j] * data->z_size;
+			j++;
+		}
+		i++;
+	}
+	data->tab = tab;
+}
+
+
 /*
 **  - only coordinats whithout colors
 */
 
-void		ft_get_tab(t_list *income, t_fdf *data)
+void		ft_get_in_tab(t_list *income, t_fdf *data)
 {
 	int		**in_tab;
 	int 	i;
@@ -79,6 +104,7 @@ void		ft_get_tab(t_list *income, t_fdf *data)
 	}
 	in_tab[i] = 0;
 	data->in_tab = in_tab;
+	ft_get_tab(data);
 }
 
 static int		ft_count_words(const char *s, char c)
@@ -116,7 +142,7 @@ void		ft_read(int fd, t_fdf **data)
 		free(str);
 		(*data)->height = (*data)->height + 1;
 	}
-	ft_get_tab(income, *data); 
+	ft_get_in_tab(income, *data); 
 	close(fd);
 }
 

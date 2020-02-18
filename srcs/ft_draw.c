@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 12:26:07 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/16 17:06:45 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/18 16:49:27 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,38 @@ int		ft_max(int x, int y)
 	y_abs = ft_abs(y);
 	return (x_abs < y_abs ? y_abs : x_abs);
 }
+/*
+void	ft_rotate(t_fdf *data)
+{
+	int	i;
+	int	j;
 
-void ft_projection(t_fdf *data, float *h, float *w, int z)
+
+}
+*/
+
+void ft_projection1(t_fdf *data, float *h, float *w, int z)
 {
 	*h = (*h + *w) * sin(0.8) - z + data->height_shift;
 	*w = (*w - *h) * cos(0.8) + data->width_shift;
 	
 //	*h = (*h + *w) * sin(0.6) - z + shift/2;
 //	*w = (*w - *h) * cos(0.6) + shift;
+}
+
+void ft_projection(t_fdf *data, float *h, float *w, int z)
+{
+	float a[3];
+	float c[3];
+
+	a[0] = *h;
+	a[1] = *w;
+	a[2] = (float)z;
+	c[0] = (a[0] * sqrt(3) - a[2] * sqrt(3)) / sqrt(6);
+	c[1] = (a[0] + 2 * a[1] + a[2]) / sqrt(6);
+	c[2] = (a[0] * sqrt(2) - a[1] * sqrt(2) + a[2] * sqrt(2)) / sqrt(6);
+	*h = c[0] + data->height_shift;
+	*w = c[1];
 }
 
 void	ft_bresenham(float *pixel, float *pixel1, t_fdf *data)
@@ -62,6 +86,29 @@ void	ft_bresenham(float *pixel, float *pixel1, t_fdf *data)
 		tmp[1] += w_step;
 	}
 }
+/*
+void	ft_get_pixel(t_fdf *data, float *pixel, float *pixel1, int type)
+{
+	if (-1 == type)
+	{
+		pixel1[2] = data->in_tab[(int)pixel[0]][(int)pixel[1]] * data->z_size;
+		pixel1[0] = pixel[0] * data->case_size;
+		pixel1[1] = pixel[1] * data->case_size;
+	}
+	else if (0 == type)
+	{
+		pixel1[2] = data->in_tab[(int)pixel[0] + 1][(int)pixel[1]] * data->z_size;
+		pixel1[0] = (pixel[0] + 1) * data->case_size;
+		pixel1[1] = pixel[1] * data->case_size;
+	}
+	else if (1 == type)
+	{
+		pixel1[2] = data->in_tab[(int)pixel[0]][(int)pixel[1] + 1] * data->z_size;
+		pixel1[0] = pixel[0] * data->case_size;
+		pixel1[1] = (pixel[1] + 1) * data->case_size;
+	}
+}
+*/
 
 void	ft_get_pixel(t_fdf *data, float *pixel, float *pixel1, int type)
 {
@@ -84,6 +131,8 @@ void	ft_get_pixel(t_fdf *data, float *pixel, float *pixel1, int type)
 		pixel1[1] = (pixel[1] + 1) * data->case_size;
 	}
 }
+
+
 
 void	ft_draw(t_fdf *data)
 {
