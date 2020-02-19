@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:16:01 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/19 19:12:41 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/19 19:40:18 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int		ft_read(int fd, t_fdf **data);
 void	ft_draw(t_fdf *data);
 void	ft_rotate(t_fdf *data);
 void	ft_get_tab(t_fdf *data, int ini);
-void	ft_print_tab(t_fdf *data);
+t_fdf	*ft_data_ini(void);
+void	ft_data_delete(t_fdf *data);
 
 #endif
