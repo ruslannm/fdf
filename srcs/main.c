@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:15:31 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/18 18:47:21 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/19 14:50:48 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,10 @@ void		ft_get_tab(t_fdf *data)
 		j = 0;
 		while (j < data->width)
 		{
-			tab[i][j].pixel[0] = (float)(i * data->case_size + data->height_shift);
-			tab[i][j].pixel[1] = (float)(j * data->case_size + data->width_shift);
+			tab[i][j].pixel[0] = (float)(i * data->case_size);
+			tab[i][j].pixel[1] = (float)(j * data->case_size);
 			tab[i][j].pixel[2] = (float)(data->in_tab[i][j] * data->z_size);
+			tab[i][j].pixel[3] = (float)(data->in_tab[i][j] * data->z_size);
 			j++;
 		}
 		i++;
@@ -179,6 +180,8 @@ void	ft_print_tab(t_fdf *data)
 			ft_putnbr(data->tab[h][w].pixel[1]);
 			ft_putchar('*');
 			ft_putnbr(data->tab[h][w].pixel[2]);
+			ft_putchar('*');
+			ft_putnbr(data->tab[h][w].pixel[3]);
 			ft_putchar(' ');
 			w++;
 		}

@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:16:01 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/18 18:13:49 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/19 14:34:08 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 typedef	struct 		s_tab
 {
-	float			pixel[3];
+	float			pixel[4];
 }					t_tab;
 
 typedef struct		s_fdf

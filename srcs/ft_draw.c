@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 12:26:07 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/18 19:05:10 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/19 15:03:23 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,8 @@ void ft_projection(t_fdf *data, float *h, float *w, int z)
 	a[0] = *h;
 	a[1] = *w;
 	a[2] = (float)z;
-	c[0] = (a[0] * sqrt(3) - a[2] * sqrt(3)) / sqrt(6);
-	c[1] = (a[0] + 2 * a[1] + a[2]) / sqrt(6);
+	c[0] = (a[0] * sqrt(3) - a[2] * sqrt(3)) / sqrt(6) + data->height_shift;
+	c[1] = (a[0] + 2 * a[1] + a[2]) / sqrt(6) + data->width_shift;
 	c[2] = (a[0] * sqrt(2) - a[1] * sqrt(2) + a[2] * sqrt(2)) / sqrt(6);
 	*h = c[0];
 	*w = c[1];
@@ -121,13 +121,14 @@ void	ft_bresenham(float *pixel, float *pixel1, t_fdf *data)
 	float	h_step;
 	float	w_step;
 	int		max;
-	float	tmp[3];
+	float	tmp[4];
 	int		color;
 
 	tmp[0] = pixel[0];
 	tmp[1] = pixel[1];
 	tmp[2] = pixel[2];
-	color = (tmp[2] || pixel1[2] ? 0xe80c0c : 0xffffff);
+	tmp[3] = pixel[3];
+	color = (tmp[3] || pixel1[3] ? 0xe80c0c : 0xffffff);
 	ft_projection(data, &tmp[0], &tmp[1], (int)tmp[2]);
 	ft_projection(data, &pixel1[0], &pixel1[1], (int)pixel1[2]);
 	h_step = pixel1[0] - tmp[0];
@@ -173,24 +174,29 @@ void	ft_get_pixel(t_fdf *data, int *point, float *pixel1, int type)
 		pixel1[0] = data->tab[point[0]][point[1]].pixel[0];
 		pixel1[1] = data->tab[point[0]][point[1]].pixel[1];
 		pixel1[2] = data->tab[point[0]][point[1]].pixel[2];
+		pixel1[3] = data->tab[point[0]][point[1]].pixel[3];
 	}
 	else if (0 == type)
 	{
 		pixel1[0] = data->tab[point[0] + 1][point[1]].pixel[0];
 		pixel1[1] = data->tab[point[0]][point[1]].pixel[1];
-		pixel1[2] = data->tab[point[0]][point[1]].pixel[2];
+		pixel1[2] = data->tab[point[0] + 1][point[1]].pixel[2];
+		pixel1[3] = data->tab[point[0] + 1][point[1]].pixel[3];
 	}
 	else if (1 == type)
 	{
 		pixel1[0] = data->tab[point[0]][point[1]].pixel[0];
 		pixel1[1] = data->tab[point[0]][point[1] + 1].pixel[1];
-		pixel1[2] = data->tab[point[0]][point[1]].pixel[2];
+		pixel1[2] = data->tab[point[0]][point[1] + 1].pixel[2];
+		pixel1[3] = data->tab[point[0]][point[1] + 1].pixel[3];
 	}
+	
+	
 }
 
 void	ft_draw(t_fdf *data)
 {
-	float	pixel[4][3];
+	float	pixel[4][4];
 	int		point[2];
 
 	point[0] = 0;
