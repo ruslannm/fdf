@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:16:01 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/19 15:26:47 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/19 15:53:14 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,6 @@ void	ft_read_argv(t_fdf *data, int argc, char **argv);
 void	ft_read(int fd, t_fdf **data);
 void	ft_draw(t_fdf *data);
 void	ft_rotate(t_fdf *data);
+void		ft_get_tab(t_fdf *data, int ini);
 
 #endif

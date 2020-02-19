@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:15:31 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/19 15:30:19 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/19 15:40:39 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ int ft_mouse(int button, int x, int y, t_fdf *data)
 	return (0);
 	*/
     if (1 == button)
-		data->x_angle -= 10;
+		data->x_angle -= 0.1;
     else if (2 == button)
-		data->x_angle += 10;
+		data->x_angle += 0.1;
 	if (x > 0 && x < 1000 && y > 0 && y < 1000)
 	{
 		mlx_clear_window(data->mlx_ptr, data->win_ptr);

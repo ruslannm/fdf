@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 18:00:01 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/19 15:32:34 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/19 15:52:57 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,21 @@ int		*ft_getstr_int(char *str, int width)
 	return (ret);
 }
 
-void		ft_get_tab(t_fdf *data)
+void		ft_get_tab(t_fdf *data, int ini)
 {
 	t_tab	**tab;
 	int 	i;
 	int		j;
 
-	tab = (t_tab**)malloc(sizeof(t_tab*) * (data->height + 1));
+	if (0 == ini)
+        tab = (t_tab**)malloc(sizeof(t_tab*) * (data->height + 1));
+    else
+        tab = data->tab;    
 	i = 0;
 	while (i < data->height)
 	{
-		tab[i] = (t_tab*)malloc(sizeof(t_tab) * (data->width + 1));
+    	if (0 == ini)
+	    	tab[i] = (t_tab*)malloc(sizeof(t_tab) * (data->width + 1));
 		j = 0;
 		while (j < data->width)
 		{
@@ -77,7 +81,7 @@ void		ft_get_in_tab(t_list *income, t_fdf *data)
 	}
 	in_tab[i] = 0;
 	data->in_tab = in_tab;
-	ft_get_tab(data);
+	ft_get_tab(data, 0);
 }
 
 void ft_read_argv(t_fdf *data, int argc, char **argv)
@@ -94,9 +98,9 @@ void ft_read_argv(t_fdf *data, int argc, char **argv)
     }
     data->height_shift = 150;
     data->width_shift = 150;
-    data->x_angle = 0.1;
-    data->y_angle = 0.1;
-    data->z_angle = 0.1;
+    data->x_angle = 0;
+    data->y_angle = 0;
+    data->z_angle = 0;
 };
 
 static int		ft_count_words(const char *s, char c)

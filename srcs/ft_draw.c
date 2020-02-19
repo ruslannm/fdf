@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 12:26:07 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/19 15:37:31 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/19 15:53:58 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	ft_rotate(t_fdf *data)
 	int		i;
 	int		j;
 
+	ft_get_tab(data, 1);
 	i = 0;
 	while (i < data->height)
 	{
@@ -65,9 +66,6 @@ void	ft_rotate(t_fdf *data)
 		}
 		i++;
 	}
-	data->x_angle = 0;
-	data->y_angle = 0;
-	data->z_angle = 0;
 }
 
 void	ft_projection(t_fdf *data, float *h, float *w, int z)
