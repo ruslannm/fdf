@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 12:26:07 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/19 18:13:14 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/19 18:29:44 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,6 @@ void	ft_draw(t_fdf *data)
 
 	ft_get_tab(data, 1);
 	ft_rotate(data);
-	ft_print_tab(data);
 	point[0] = 0;
 	while (point[0] < data->height)
 	{
