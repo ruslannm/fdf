@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:16:01 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/19 15:53:14 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/19 17:12:46 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ typedef struct		s_fdf
 	int				z_size;
 	int				height_shift;
 	int				width_shift;
-	float			x_angle;
-	float			y_angle;
-	float			z_angle;
+	int				x_angle;
+	int				y_angle;
+	int				z_angle;
 }					t_fdf;
 
 
@@ -49,6 +49,7 @@ void	ft_read_argv(t_fdf *data, int argc, char **argv);
 void	ft_read(int fd, t_fdf **data);
 void	ft_draw(t_fdf *data);
 void	ft_rotate(t_fdf *data);
-void		ft_get_tab(t_fdf *data, int ini);
+void	ft_get_tab(t_fdf *data, int ini);
+void	ft_print_tab(t_fdf *data);
 
 #endif

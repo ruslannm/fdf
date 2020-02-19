@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:15:31 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/19 16:29:57 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/19 18:17:00 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,6 @@
 
 int ft_key(int key, t_fdf *data)
 {
-    //int shift;
-
-    ft_putnbr(key);
-	write(1, "\n", 1);
     if (126 == key)
 		data->height_shift -= 10;
     else if (125 == key)
@@ -31,17 +27,17 @@ int ft_key(int key, t_fdf *data)
 	else if (78 == key)
 		data->case_size -= 5;
 	else if (12 == key)
-		data->x_angle += 0.1;
+		data->x_angle += 1;
 	else if (0 == key)
-		data->x_angle -= 0.1;
+		data->x_angle -= 1;
 	else if (13 == key)
-		data->y_angle += 0.1;
+		data->y_angle += 1;
 	else if (1 == key)
-		data->y_angle -= 0.1;
+		data->y_angle -= 1;
 	else if (14 == key)
-		data->z_angle += 0.1;
+		data->z_angle += 1;
 	else if (2 == key)
-		data->z_angle -= 0.1;
+		data->z_angle -= 1;
 	else if (53 == key)
 	{
 		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
@@ -64,17 +60,6 @@ int ft_key(int key, t_fdf *data)
 
 int ft_mouse(int button, int x, int y, t_fdf *data)
 {
-/*	(void)data;
-	ft_putstr("x = ");
-	ft_putnbr(x);
-	ft_putstr("\ty = ");
-	ft_putnbr(y);
-	ft_putstr("\tbutton = ");
-	ft_putnbr(button);
-	ft_putchar('\n');
-	return (0);
-	*/
-
     if (5 == button)
 		data->z_size += 1;
     else if (4 == button)
@@ -86,7 +71,7 @@ int ft_mouse(int button, int x, int y, t_fdf *data)
 	}
 	return (0);
 }
-
+/*
 void	ft_print_tab(t_fdf *data)
 {
 	int	h;
@@ -111,21 +96,17 @@ void	ft_print_tab(t_fdf *data)
 		w = 0;
 		while (w < data->width)
 		{
-			ft_putnbr(data->tab[h][w].pixel[0]);
-			ft_putchar('*');
-			ft_putnbr(data->tab[h][w].pixel[1]);
-			ft_putchar('*');
-			ft_putnbr(data->tab[h][w].pixel[2]);
-			ft_putchar('*');
-			ft_putnbr(data->tab[h][w].pixel[3]);
-			ft_putchar(' ');
+			printf("%.3f*", data->tab[h][w].pixel[0]);
+			printf("%.3f*", data->tab[h][w].pixel[1]);
+			printf("%.3f*", data->tab[h][w].pixel[2]);
+			printf("%.3f ", data->tab[h][w].pixel[3]);
 			w++;
 		}
-		write(1, "\n", 1);
+		printf("\n");
 		h++;
 	}
 }
-
+*/
 
 int			main(int argc, char **argv)
 {

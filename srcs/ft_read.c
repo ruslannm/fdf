@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 18:00:01 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/19 15:52:57 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/19 17:34:42 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void ft_read_argv(t_fdf *data, int argc, char **argv)
     data->width_shift = 150;
     data->x_angle = 0;
     data->y_angle = 0;
-    data->z_angle = 0;
+    data->z_angle = 3;
 };
 
 static int		ft_count_words(const char *s, char c)
