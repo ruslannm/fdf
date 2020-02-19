@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 12:26:07 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/19 15:03:23 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/19 15:37:31 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ float	ft_get_mulmatrix(float angle, float a, float b, int sign)
 	return (ret);
 }
 
-
 void	ft_rotate(t_fdf *data)
 {
 	int		i;
@@ -51,56 +50,27 @@ void	ft_rotate(t_fdf *data)
 			{
 				data->tab[i][j].pixel[1] = ft_get_mulmatrix(data->x_angle, data->tab[i][j].pixel[1], data->tab[i][j].pixel[2], -1);
 				data->tab[i][j].pixel[2] = ft_get_mulmatrix(data->x_angle, data->tab[i][j].pixel[2], data->tab[i][j].pixel[1], 1);
-				data->x_angle = 0;
 			}
 			if (data->y_angle)
 			{
 				data->tab[i][j].pixel[0] = ft_get_mulmatrix(data->y_angle, data->tab[i][j].pixel[0], data->tab[i][j].pixel[2], 1);
 				data->tab[i][j].pixel[2] = ft_get_mulmatrix(data->y_angle, data->tab[i][j].pixel[2], data->tab[i][j].pixel[0], -1);
-				data->y_angle = 0;
 			}
 			if (data->z_angle)
 			{
 				data->tab[i][j].pixel[0] = ft_get_mulmatrix(data->z_angle, data->tab[i][j].pixel[0], data->tab[i][j].pixel[1], -1);
 				data->tab[i][j].pixel[2] = ft_get_mulmatrix(data->z_angle, data->tab[i][j].pixel[1], data->tab[i][j].pixel[0], 1);
-				data->z_angle = 0;
 			}
-
-
-/*			if (data->y_angle)
-			{
-				data->tab[i][j].pixel[0] = cos(data->y_angle) * data->tab[i][j].pixel[0] +\
-				sin(data->x_angle) * data->tab[i][j].pixel[2];
-				data->tab[i][j].pixel[2] = sin(data->x_angle) * data->tab[i][j].pixel[1] +\
-				cos(data->x_angle) * data->tab[i][j].pixel[2];
-				data->y_angle = 0;
-			}
-			if (data->z_angle)
-			{
-				data->tab[i][j].pixel[1] = cos(data->x_angle) * data->tab[i][j].pixel[1] -\
-				sin(data->x_angle) * data->tab[i][j].pixel[2];
-				data->tab[i][j].pixel[2] = sin(data->x_angle) * data->tab[i][j].pixel[1] +\
-				cos(data->x_angle) * data->tab[i][j].pixel[2];
-				data->z_angle = 0;
-			}
-*/
-
 			j++;
 		}
 		i++;
 	}
+	data->x_angle = 0;
+	data->y_angle = 0;
+	data->z_angle = 0;
 }
 
-void ft_projection1(t_fdf *data, float *h, float *w, int z)
-{
-	*h = (*h + *w) * sin(0.8) - z + data->height_shift;
-	*w = (*w - *h) * cos(0.8) + data->width_shift;
-	
-//	*h = (*h + *w) * sin(0.6) - z + shift/2;
-//	*w = (*w - *h) * cos(0.6) + shift;
-}
-
-void ft_projection(t_fdf *data, float *h, float *w, int z)
+void	ft_projection(t_fdf *data, float *h, float *w, int z)
 {
 	float a[3];
 	float c[3];
@@ -113,7 +83,6 @@ void ft_projection(t_fdf *data, float *h, float *w, int z)
 	c[2] = (a[0] * sqrt(2) - a[1] * sqrt(2) + a[2] * sqrt(2)) / sqrt(6);
 	*h = c[0];
 	*w = c[1];
-	data->x_angle = 0;
 }
 
 void	ft_bresenham(float *pixel, float *pixel1, t_fdf *data)
@@ -190,8 +159,6 @@ void	ft_get_pixel(t_fdf *data, int *point, float *pixel1, int type)
 		pixel1[2] = data->tab[point[0]][point[1] + 1].pixel[2];
 		pixel1[3] = data->tab[point[0]][point[1] + 1].pixel[3];
 	}
-	
-	
 }
 
 void	ft_draw(t_fdf *data)
