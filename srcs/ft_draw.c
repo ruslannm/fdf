@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 12:26:07 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/19 15:53:58 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/19 16:24:09 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,29 +110,6 @@ void	ft_bresenham(float *pixel, float *pixel1, t_fdf *data)
 		tmp[1] += w_step;
 	}
 }
-/*
-void	ft_get_pixel(t_fdf *data, float *pixel, float *pixel1, int type)
-{
-	if (-1 == type)
-	{
-		pixel1[2] = data->in_tab[(int)pixel[0]][(int)pixel[1]] * data->z_size;
-		pixel1[0] = pixel[0] * data->case_size;
-		pixel1[1] = pixel[1] * data->case_size;
-	}
-	else if (0 == type)
-	{
-		pixel1[2] = data->in_tab[(int)pixel[0] + 1][(int)pixel[1]] * data->z_size;
-		pixel1[0] = (pixel[0] + 1) * data->case_size;
-		pixel1[1] = pixel[1] * data->case_size;
-	}
-	else if (1 == type)
-	{
-		pixel1[2] = data->in_tab[(int)pixel[0]][(int)pixel[1] + 1] * data->z_size;
-		pixel1[0] = pixel[0] * data->case_size;
-		pixel1[1] = (pixel[1] + 1) * data->case_size;
-	}
-}
-*/
 
 void	ft_get_pixel(t_fdf *data, int *point, float *pixel1, int type)
 {
@@ -164,6 +141,8 @@ void	ft_draw(t_fdf *data)
 	float	pixel[4][4];
 	int		point[2];
 
+	ft_get_tab(data, 1);
+	ft_rotate(data);
 	point[0] = 0;
 	while (point[0] < data->height)
 	{
