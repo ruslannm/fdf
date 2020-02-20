@@ -6,11 +6,17 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 18:00:01 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/20 16:35:56 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/20 17:53:12 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+void	ft_err_exit(char *err)
+{
+	ft_putendl(err);
+	exit(1);
+}
 
 void	ft_del(void *content, size_t len)
 {
@@ -35,11 +41,13 @@ void	ft_read_argv(t_fdf *data, int argc, char **argv)
 		data->z_size = 1;
 	}
 	data->height_shift = 150;
-	data->width_shift = 150;
+	data->width_shift = 300;
 	data->x_angle = 0;
 	data->y_angle = 0;
 	data->z_angle = 0;
 	data->height = 0;
+	data->menu = 1;
+	data->projection = 1;
 }
 
 int		ft_count_words(const char *s, char c)

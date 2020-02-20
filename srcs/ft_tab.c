@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 18:00:01 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/20 14:58:07 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/20 17:49:36 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ t_in_tab	*ft_getstr_int(char *str, int width)
 		ret[i].pixel[0] = ft_atoi(str_tab[i]);
 		free(str_tab[i]);
 		i++;
-		//if ((pointer = ft_strchr(*str_tab, ',')))
 	}
 	free(str_tab);
 	return (ret);
@@ -53,7 +52,7 @@ void		ft_get_tab(t_fdf *data, int ini)
 			tab[i][j].pixel[0] = (i * data->case_size);
 			tab[i][j].pixel[1] = (j * data->case_size);
 			tab[i][j].pixel[2] = (data->in_tab[i][j].pixel[0] * data->z_size);
-			tab[i][j].pixel[3] = (data->in_tab[i][j].pixel[0] * data->z_size);
+			tab[i][j].pixel[3] = (data->in_tab[i][j].pixel[0]);
 			j++;
 		}
 		i++;
