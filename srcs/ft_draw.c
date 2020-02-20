@@ -6,18 +6,18 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 12:26:07 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/20 14:58:55 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/20 16:16:14 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-float		ft_abs(float x)
+float	ft_abs(float x)
 {
 	return ((x < 0 ? -x : x));
 }
 
-float		ft_max(float x, float y)
+float	ft_max(float x, float y)
 {
 	float	x_abs;
 	float	y_abs;
@@ -47,7 +47,7 @@ void	ft_bresenham(float *pixel, float *pixel1, t_fdf *data)
 	max = ft_max(h_step, w_step);
 	h_step = h_step / max;
 	w_step = w_step / max;
-	while  ((int)(tmp[0] - pixel1[0]) || (int)(tmp[1] - pixel1[1]))
+	while ((int)(tmp[0] - pixel1[0]) || (int)(tmp[1] - pixel1[1]))
 	{
 		mlx_pixel_put(data->mlx_ptr, data->win_ptr, tmp[1], tmp[0], color);
 		tmp[0] += h_step;
@@ -85,7 +85,6 @@ void	ft_draw(t_fdf *data)
 	float	pixel[4][4];
 	int		point[2];
 
-	ft_get_tab(data, 1);
 	ft_rotate(data);
 	point[0] = 0;
 	while (point[0] < data->height)

@@ -6,18 +6,19 @@
 #    By: rgero <rgero@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/13 15:46:56 by rgero             #+#    #+#              #
-#    Updated: 2020/02/20 14:55:28 by rgero            ###   ########.fr        #
+#    Updated: 2020/02/20 16:21:06 by rgero            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fdf
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror
 FRAMEWORKS = -framework OpenGL -framework AppKit
 
 SRC_PATH = ./srcs/
-SRC_NAME = main.c ft_read.c ft_draw.c ft_data.c ft_rotate.c ft_tab.c
+SRC_NAME = main.c ft_read.c ft_draw.c ft_data.c ft_rotate.c ft_tab.c\
+	ft_projection.c
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 
 OBJ_PATH = ./srcs/

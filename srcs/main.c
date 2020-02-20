@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:15:31 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/20 14:38:59 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/20 16:32:05 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,15 +106,15 @@ int		main(int argc, char **argv)
 	int		fd;
 	t_fdf	*data;
 
-	if (argc == 2)
+	if (argc == 2 || argc == 4)
 	{
 		fd = open(argv[1], O_RDONLY);
 		data = ft_data_ini();
 		if (fd > 0 && data)
 		{
 			ft_read_argv(data, argc, argv);
-			if (-1 == ft_read(fd, &data, 0))
-				ft_putendl("usage: ./fdf <filename>");
+			if (-1 == ft_read(fd, &data, NULL, 0))
+				ft_putendl("usage: ./fdf <filename> [case_size z_size]");
 			else if (data->height <= 0)
 				ft_putendl("error");
 			else
@@ -125,6 +125,6 @@ int		main(int argc, char **argv)
 		ft_data_delete(data);
 	}
 	else
-		ft_putendl("usage: ./fdf <filename>");
+		ft_putendl("usage: ./fdf <filename> [case_size z_size]");
 	return (0);
 }

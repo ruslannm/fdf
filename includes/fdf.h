@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:16:01 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/20 14:55:48 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/20 16:26:50 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,12 @@ typedef struct		s_fdf
 
 
 void	ft_read_argv(t_fdf *data, int argc, char **argv);
-int	    ft_read(int fd, t_fdf **data, int ret);
+int		ft_read(int fd, t_fdf **data, t_list *income, int ret);
 void	ft_draw(t_fdf *data);
 void	ft_rotate(t_fdf *data);
+void	ft_rotate_x(t_fdf *data, int i, int j);
+void	ft_rotate_y(t_fdf *data, int i, int j);
+void	ft_rotate_z(t_fdf *data, int i, int j);
 void	ft_projection(t_fdf *data, float *h, float *w, float z);
 void	ft_get_tab(t_fdf *data, int ini);
 t_fdf	*ft_data_ini(void);
