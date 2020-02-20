@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 18:00:01 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/20 15:00:32 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/20 15:24:39 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_del(void *content, size_t len)
 	free(content);
 }
 
-void ft_read_argv(t_fdf *data, int argc, char **argv)
+void	ft_read_argv(t_fdf *data, int argc, char **argv)
 {
     if (4 == argc)
     {
@@ -34,10 +34,11 @@ void ft_read_argv(t_fdf *data, int argc, char **argv)
     data->width_shift = 150;
     data->x_angle = 0;
     data->y_angle = 0;
-    data->z_angle = 3;
+    data->z_angle = 0;
+	data->height = 0;
 };
 
-static int		ft_count_words(const char *s, char c)
+int		ft_count_words(const char *s, char c)
 {
 	int	ret;
 
@@ -55,29 +56,29 @@ static int		ft_count_words(const char *s, char c)
 	return (ret);
 }
 
-int	    ft_read(int fd, t_fdf **data, int ret)
+int		ft_read(int fd, t_fdf **data, int ret)
 {
 	t_list	*income;
 	t_list	*tmp;
 	char	*str;
-
+	
 	str = NULL;
-	(*data)->height = 0;
 	income = NULL;
-	while (get_next_line(fd, &str))
+	while (get_next_line(fd, &str) && 0 == ret)
 	{
 		if (!str)
-        {
-        	ret = -1;
-            break;
-        }
-        (*data)->width = ft_count_words(str, ' ');
-    	tmp = ft_lstnew(str, ft_strlen(str));
-		ft_lstaddback(&income, tmp);
-		free(str);
-		(*data)->height = (*data)->height + 1;
+			ret = -1;
+        else
+		{
+        	(*data)->width = ft_count_words(str, ' ');
+    		tmp = ft_lstnew(str, ft_strlen(str));
+			ft_lstaddback(&income, tmp);
+			free(str);
+			(*data)->height = (*data)->height + 1;
+		}
 	}
-	free(str);
+	if (str)
+		free(str);
 	if (0 == ret)
 		ft_get_in_tab(income, *data); 
 	close(fd);
