@@ -6,14 +6,14 @@
 #    By: rgero <rgero@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/13 15:46:56 by rgero             #+#    #+#              #
-#    Updated: 2020/02/20 17:16:46 by rgero            ###   ########.fr        #
+#    Updated: 2020/02/20 20:30:26 by rgero            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fdf
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 FRAMEWORKS = -framework OpenGL -framework AppKit
 
 SRC_PATH = ./srcs/

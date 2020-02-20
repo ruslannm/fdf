@@ -6,17 +6,37 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 12:26:07 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/20 18:20:59 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/20 20:11:42 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+void	ft_put_pixel(t_fdf *data, int x, int y, int color)
+{
+	if (x >= MENU_WIDTH * data->menu && x < WIDTH && y >= 0 && y < HEIGHT)
+		*(int*)(data->data + (x + y * WIDTH) * data->bpp / 8) = color;
+}
+
+void	ft_fill_bg(t_fdf *data)
+{
+	int	i;
+	int	*img;
+
+	ft_bzero(data->data, HEIGHT * WIDTH * (data->bpp / 8));
+	img = (int*)(data->data);
+	i = -1;
+	while (++i < HEIGHT * WIDTH)
+		img[i] = (i % WIDTH < data->menu * MENU_WIDTH) ?
+			MENUCOLOR : BGCOLOR;
+}
 
 void	ft_rotate(t_fdf *data)
 {
 	int		i;
 	int		j;
 
+	ft_fill_bg(data);
 	ft_get_tab(data, 1);
 	i = 0;
 	while (i < data->height)
@@ -34,7 +54,7 @@ void	ft_rotate(t_fdf *data)
 		}
 		i++;
 	}
-	ft_put_menu(data);
+	//ft_put_menu(data);
 }
 
 void	ft_projection(t_fdf *data, float *h, float *w, float z)
@@ -47,7 +67,8 @@ void	ft_projection(t_fdf *data, float *h, float *w, float z)
 	a[2] = z;
 	if (data->projection)
 	{
-		c[0] = (a[0] * sqrt(3) - a[2] * sqrt(3)) / sqrt(6) + data->height_shift;
+		c[0] = (a[0] * sqrt(3) - a[2] * sqrt(3)) / sqrt(6)
+				+ data->height_shift;
 		c[1] = (a[0] + 2 * a[1] + a[2]) / sqrt(6) + data->width_shift;
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:15:31 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/20 18:09:43 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/20 20:18:14 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,17 @@
 void	ft_key_angle(int key, t_fdf *data)
 {
 	if (89 == key || 92 == key)
-		data->x_angle += 1;
+		data->z_angle += 1;   //x
 	else if (83 == key || 85 == key)
-		data->x_angle -= 1;
+		data->z_angle -= 1;
 	else if (91 == key)
-		data->y_angle += 1;
+		data->y_angle += 1; 
 	else if (84 == key)
 		data->y_angle -= 1;
 	else if (88 == key)
-		data->z_angle += 1;
+		data->x_angle += 1; //z
 	else if (86 == key)
-		data->z_angle -= 1;
+		data->x_angle -= 1;
 	else if (36 == key)
 		data->menu = (data->menu ? 0 : 1);
 	else if (82 == key)
@@ -93,6 +93,9 @@ void	ft_put_windows(t_fdf *data)
 {
 	data->mlx_ptr = mlx_init();
 	data->win_ptr = mlx_new_window(data->mlx_ptr, 1000, 1000, "fdf:");
+	data->img_ptr = mlx_new_image(data->mlx_ptr, 1000, 1000);
+	data->data = mlx_get_data_addr(data->img_ptr, &(data->bpp),
+		&(data->sl), &(data->endian));
 	ft_draw(data);
 	mlx_key_hook(data->win_ptr, ft_key, data);
 	mlx_mouse_hook(data->win_ptr, ft_mouse, data);

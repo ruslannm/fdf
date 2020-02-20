@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:16:01 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/20 17:52:42 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/20 20:13:22 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@
 # include <stdlib.h>
 # include "libft.h"
 # include "get_next_line.h"
+
+# define HEIGHT		1000
+# define WIDTH		1000
+# define MENU_WIDTH	260
+# define BGCOLOR	0x000000
+# define MENUCOLOR	0x1A001A
 
 typedef	struct 		s_in_tab
 {
@@ -39,7 +45,11 @@ typedef struct		s_fdf
 	int				width;
 	void			*mlx_ptr;
 	void			*win_ptr;
-	void			*leg_ptr;
+	void			*img_ptr;
+	char			*data;
+	int				bpp;
+	int				sl;
+	int				endian;
 	int				case_size;
 	int				z_size;
 	int				height_shift;
@@ -65,5 +75,6 @@ t_fdf	*ft_data_ini(void);
 void	ft_data_delete(t_fdf *data);
 void	ft_get_in_tab(t_list *income, t_fdf *data);
 void	ft_put_menu(t_fdf *fdf);
+void	ft_put_pixel(t_fdf *data, int x, int y, int color);
 
 #endif

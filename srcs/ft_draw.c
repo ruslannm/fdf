@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 12:26:07 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/20 17:51:32 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/20 20:12:06 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ void	ft_bresenham(float *pixel, float *pixel1, t_fdf *data)
 	w_step = w_step / max;
 	while ((int)(tmp[0] - pixel1[0]) || (int)(tmp[1] - pixel1[1]))
 	{
-		mlx_pixel_put(data->mlx_ptr, data->win_ptr, tmp[1], tmp[0], color);
+//		mlx_pixel_put(data->mlx_ptr, data->win_ptr, tmp[1], tmp[0], color);
+		ft_put_pixel(data, tmp[1], tmp[0], color);
 		tmp[0] += h_step;
 		tmp[1] += w_step;
 	}
@@ -107,4 +108,6 @@ void	ft_draw(t_fdf *data)
 		}
 		point[0] = point[0] + 1;
 	}
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img_ptr, 0, 0);
+	ft_put_menu(data);
 }

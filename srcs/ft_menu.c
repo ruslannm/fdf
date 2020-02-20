@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 17:10:56 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/20 18:21:14 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/20 20:14:29 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void	ft_put_menu(t_fdf *fdf)
 		mlx = fdf->mlx_ptr;
 		win = fdf->win_ptr;
 		mlx_string_put(mlx, win, 115, 20, 0xFFFFFF, "Menu");
-		mlx_string_put(mlx, win, 0, 40, 0xFFFFFF, "_________________________");
+		mlx_string_put(mlx, win, 0, 40, 0xFFFFFF, "_______________________"
+												"___");
 		mlx_string_put(mlx, win, 10, 80, 0xFFFFFF, "Move: Arrows");
 		mlx_string_put(mlx, win, 10, 110, 0xFFFFFF, "Rotate X: NumPad 2/8");
 		mlx_string_put(mlx, win, 10, 140, 0xFFFFFF, "Rotate Y: NumPad 4/6");

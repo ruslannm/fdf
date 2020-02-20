@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 18:00:01 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/20 17:49:36 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/20 20:34:36 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,13 @@ t_in_tab	*ft_getstr_int(char *str, int width)
 	i = 0;
 	while (i < width)
 	{
-		ret[i].pixel[0] = ft_atoi(str_tab[i]);
-		free(str_tab[i]);
+		if (str_tab[i])
+		{
+			ret[i].pixel[0] = ft_atoi(str_tab[i]);
+			free(str_tab[i]);
+		}
+		else
+			ret[i].pixel[0] = 0;
 		i++;
 	}
 	free(str_tab);
