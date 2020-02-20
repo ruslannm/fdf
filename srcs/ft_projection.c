@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 12:26:07 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/20 18:02:53 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/20 18:20:59 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ void	ft_projection(t_fdf *data, float *h, float *w, float z)
 		c[0] = a[0] + data->height_shift;
 		c[1] = a[1] + data->width_shift;
 	}
-	//c[2] = (a[0] * sqrt(2) - a[1] * sqrt(2) + a[2] * sqrt(2)) / sqrt(6);
 	*h = c[0];
 	*w = c[1];
 }
