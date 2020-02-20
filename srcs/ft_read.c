@@ -6,82 +6,16 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 18:00:01 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/19 19:18:21 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/20 15:00:32 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_in_tab	*ft_getstr_int(char *str, int width)
+void	ft_del(void *content, size_t len)
 {
-	char	    **str_tab;
-	int		    i;
-	t_in_tab	*ret;
-
-	str_tab = ft_strsplit(str, ' ');
-	ret = (t_in_tab*)malloc(sizeof(t_in_tab) * (width + 1));
-	i = 0;
-	while (i < width)
-	{
-		ret[i].pixel[0] = ft_atoi(str_tab[i]);
-		free(str_tab[i]);
-		i++;
-		//if ((pointer = ft_strchr(*str_tab, ',')))
-	}
-	free(str_tab);
-	return (ret);
-}
-
-void		ft_get_tab(t_fdf *data, int ini)
-{
-	t_tab	**tab;
-	int 	i;
-	int		j;
-
-	if (0 == ini)
-        tab = (t_tab**)malloc(sizeof(t_tab*) * (data->height + 1));
-    else
-        tab = data->tab;    
-	i = 0;
-	while (i < data->height)
-	{
-    	if (0 == ini)
-	    	tab[i] = (t_tab*)malloc(sizeof(t_tab) * (data->width + 1));
-		j = 0;
-		while (j < data->width)
-		{
-			tab[i][j].pixel[0] = (i * data->case_size);
-			tab[i][j].pixel[1] = (j * data->case_size);
-			tab[i][j].pixel[2] = (data->in_tab[i][j].pixel[0] * data->z_size);
-			tab[i][j].pixel[3] = (data->in_tab[i][j].pixel[0] * data->z_size);
-			j++;
-		}
-		i++;
-	}
-	data->tab = tab;
-}
-
-/*
-**  - only coordinats whithout colors
-*/
-
-void		ft_get_in_tab(t_list *income, t_fdf *data)
-{
-	t_in_tab	**in_tab;
-	int 	    i;
-	char	    *str;
-
-	in_tab = (t_in_tab**)malloc(sizeof(t_in_tab*) * (data->height + 1));
-	i = 0;
-	while (i < data->height)
-	{
-		str = income->content;
-		income = income->next;
-		in_tab[i++] = ft_getstr_int(str, data->width);
-	}
-	in_tab[i] = 0;
-	data->in_tab = in_tab;
-	ft_get_tab(data, 0);
+	ft_bzero(content, len);
+	free(content);
 }
 
 void ft_read_argv(t_fdf *data, int argc, char **argv)
@@ -121,7 +55,7 @@ static int		ft_count_words(const char *s, char c)
 	return (ret);
 }
 
-int	    ft_read(int fd, t_fdf **data)
+int	    ft_read(int fd, t_fdf **data, int ret)
 {
 	t_list	*income;
 	t_list	*tmp;
@@ -134,8 +68,8 @@ int	    ft_read(int fd, t_fdf **data)
 	{
 		if (!str)
         {
-        	close(fd);
-            return (-1);
+        	ret = -1;
+            break;
         }
         (*data)->width = ft_count_words(str, ' ');
     	tmp = ft_lstnew(str, ft_strlen(str));
@@ -143,8 +77,10 @@ int	    ft_read(int fd, t_fdf **data)
 		free(str);
 		(*data)->height = (*data)->height + 1;
 	}
-	ft_get_in_tab(income, *data); 
-	ft_rotate(*data);
+	free(str);
+	if (0 == ret)
+		ft_get_in_tab(income, *data); 
 	close(fd);
-    return (0);
+	ft_lstdel(&income, &ft_del);  
+    return (ret);
 }

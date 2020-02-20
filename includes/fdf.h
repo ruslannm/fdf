@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:16:01 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/19 19:40:18 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/20 14:55:48 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,14 @@ typedef struct		s_fdf
 }					t_fdf;
 
 
-//void 	ft_bresenham(float h, float w, float h1, float w1, t_fdf *data);
 void	ft_read_argv(t_fdf *data, int argc, char **argv);
-int		ft_read(int fd, t_fdf **data);
+int	    ft_read(int fd, t_fdf **data, int ret);
 void	ft_draw(t_fdf *data);
 void	ft_rotate(t_fdf *data);
+void	ft_projection(t_fdf *data, float *h, float *w, float z);
 void	ft_get_tab(t_fdf *data, int ini);
 t_fdf	*ft_data_ini(void);
 void	ft_data_delete(t_fdf *data);
+void	ft_get_in_tab(t_list *income, t_fdf *data);
 
 #endif
