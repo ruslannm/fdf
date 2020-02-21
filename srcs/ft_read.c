@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 18:00:01 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/21 16:25:52 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/21 17:31:06 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_del(void *content, size_t len)
 
 void	ft_read_argv(t_fdf *data, int argc, char **argv)
 {
-	if (4 == argc )
+	if (4 == argc)
 	{
 		data->case_size = ft_atoi(argv[2]);
 		if (!data->case_size)
@@ -71,7 +71,7 @@ int		ft_count_words(const char *s, char c, int words)
 	return (ret);
 }
 
-int		ft_read(int fd, t_fdf **data, t_list *income, int ret)
+int		valft_read(int fd, t_fdf **data, t_list *income, int ret)
 {
 	t_list	*tmp;
 	char	*str;

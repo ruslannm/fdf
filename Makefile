@@ -6,7 +6,7 @@
 #    By: rgero <rgero@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/13 15:46:56 by rgero             #+#    #+#              #
-#    Updated: 2020/02/21 17:16:28 by rgero            ###   ########.fr        #
+#    Updated: 2020/02/21 17:20:07 by rgero            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,12 +46,6 @@ $(NAME): $(OBJ)
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 	@/bin/mkdir -p $(OBJ_PATH)
 	$(CC) $(CFLAGS) $(INCLUDES) $< -o $@
-
-libft:
-	make -C $(LIB_PATH)
-
-libmlx:
-	make -C $(LIBMLX_PATH)
 
 clean:
 	/bin/rm -rf $(OBJ_PATH)
