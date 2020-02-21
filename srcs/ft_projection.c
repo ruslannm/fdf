@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 12:26:07 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/20 20:11:42 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/21 14:57:08 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void	ft_rotate(t_fdf *data)
 		}
 		i++;
 	}
-	//ft_put_menu(data);
 }
 
 void	ft_projection(t_fdf *data, float *h, float *w, float z)

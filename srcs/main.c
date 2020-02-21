@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:15:31 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/20 20:18:14 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/21 15:08:36 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,21 @@
 
 void	ft_key_angle(int key, t_fdf *data)
 {
-	if (89 == key || 92 == key)
-		data->z_angle += 1;   //x
+	if (53 == key)
+	{
+		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+		exit(0);
+	}
+	else if (89 == key || 92 == key)
+		data->z_angle += 1;
 	else if (83 == key || 85 == key)
 		data->z_angle -= 1;
 	else if (91 == key)
-		data->y_angle += 1; 
+		data->y_angle += 1;
 	else if (84 == key)
 		data->y_angle -= 1;
 	else if (88 == key)
-		data->x_angle += 1; //z
+		data->x_angle += 1;
 	else if (86 == key)
 		data->x_angle -= 1;
 	else if (36 == key)
@@ -42,12 +47,7 @@ int		ft_key(int key, t_fdf *data)
 	if (!(53 == key || (122 < key && 127 > key) || 69 == key || 78 == key ||
 	36 == key || (82 < key && 93 > key && key != 87) || 82 == key))
 		return (0);
-	if (53 == key)
-	{
-		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-		exit(0);
-	}
-	else if (126 == key)
+	if (126 == key)
 		data->height_shift -= 10;
 	else if (125 == key)
 		data->height_shift += 10;
@@ -63,6 +63,7 @@ int		ft_key(int key, t_fdf *data)
 		ft_key_angle(key, data);
 	mlx_clear_window(data->mlx_ptr, data->win_ptr);
 	ft_draw(data);
+	ft_put_image(data);
 	return (0);
 }
 
@@ -85,6 +86,7 @@ int		ft_mouse(int button, int x, int y, t_fdf *data)
 	{
 		mlx_clear_window(data->mlx_ptr, data->win_ptr);
 		ft_draw(data);
+		ft_put_image(data);
 	}
 	return (0);
 }
@@ -97,6 +99,7 @@ void	ft_put_windows(t_fdf *data)
 	data->data = mlx_get_data_addr(data->img_ptr, &(data->bpp),
 		&(data->sl), &(data->endian));
 	ft_draw(data);
+	ft_put_image(data);
 	mlx_key_hook(data->win_ptr, ft_key, data);
 	mlx_mouse_hook(data->win_ptr, ft_mouse, data);
 	mlx_loop(data->mlx_ptr);
@@ -110,17 +113,17 @@ int		main(int argc, char **argv)
 	if (argc != 2)
 		ft_err_exit("usage: ./fdf <filename> [case_size z_size]");
 	if ((fd = open(argv[1], O_RDONLY | O_DIRECTORY)) > 0)
-		ft_err_exit("Incorrect filename");
+		ft_err_exit("No data found.");
 	if ((fd = open(argv[1], O_RDONLY)) < 0)
-		ft_err_exit("Incorrect filename");
+		ft_err_exit("No data found.");
 	data = ft_data_ini();
 	if (data)
 	{
 		ft_read_argv(data, argc, argv);
 		if (-1 == ft_read(fd, &data, NULL, 0))
-			ft_err_exit("usage: ./fdf <filename> [case_size z_size]");
+			ft_err_exit("Found wrong line length. Exiting.");
 		else if (data->height <= 0)
-			ft_err_exit("Incorrect map");
+			ft_err_exit("No data found.");
 		else
 			ft_put_windows(data);
 	}

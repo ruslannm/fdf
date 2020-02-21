@@ -6,7 +6,7 @@
 #    By: rgero <rgero@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/13 15:46:56 by rgero             #+#    #+#              #
-#    Updated: 2020/02/20 20:30:26 by rgero            ###   ########.fr        #
+#    Updated: 2020/02/21 15:10:53 by rgero            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,8 +17,8 @@ CFLAGS = -Wall -Wextra -Werror -g
 FRAMEWORKS = -framework OpenGL -framework AppKit
 
 SRC_PATH = ./srcs/
-SRC_NAME = main.c ft_read.c ft_draw.c ft_data.c ft_rotate.c ft_tab.c\
-	ft_projection.c ft_menu.c
+SRC_NAME = main.c ft_read.c ft_draw.c ft_rotate.c ft_tab.c\
+	ft_projection.c ft_image.c
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 
 OBJ_PATH = ./srcs/

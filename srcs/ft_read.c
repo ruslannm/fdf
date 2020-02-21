@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 18:00:01 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/20 17:53:12 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/21 15:03:30 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,12 @@ void	ft_read_argv(t_fdf *data, int argc, char **argv)
 	data->y_angle = 0;
 	data->z_angle = 0;
 	data->height = 0;
+	data->width = 0;
 	data->menu = 1;
 	data->projection = 1;
 }
 
-int		ft_count_words(const char *s, char c)
+int		ft_count_words(const char *s, char c, int words)
 {
 	int	ret;
 
@@ -65,6 +66,8 @@ int		ft_count_words(const char *s, char c)
 		while (*s == c && *s)
 			s++;
 	}
+	if (ret != words && words)
+		ret = -1;
 	return (ret);
 }
 
@@ -80,7 +83,8 @@ int		ft_read(int fd, t_fdf **data, t_list *income, int ret)
 			ret = -1;
 		else
 		{
-			(*data)->width = ft_count_words(str, ' ');
+			(*data)->width = ft_count_words(str, ' ', (*data)->width);
+			ret = (-1 == (*data)->width ? -1 : 0);
 			tmp = ft_lstnew(str, ft_strlen(str));
 			ft_lstaddback(&income, tmp);
 			free(str);

@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:16:01 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/20 20:13:22 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/21 15:12:20 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,20 +61,20 @@ typedef struct		s_fdf
 	int				projection;
 }					t_fdf;
 
-void	ft_err_exit(char *err);
-void	ft_read_argv(t_fdf *data, int argc, char **argv);
-int		ft_read(int fd, t_fdf **data, t_list *income, int ret);
-void	ft_draw(t_fdf *data);
-void	ft_rotate(t_fdf *data);
-void	ft_rotate_x(t_fdf *data, int i, int j);
-void	ft_rotate_y(t_fdf *data, int i, int j);
-void	ft_rotate_z(t_fdf *data, int i, int j);
-void	ft_projection(t_fdf *data, float *h, float *w, float z);
-void	ft_get_tab(t_fdf *data, int ini);
-t_fdf	*ft_data_ini(void);
-void	ft_data_delete(t_fdf *data);
-void	ft_get_in_tab(t_list *income, t_fdf *data);
-void	ft_put_menu(t_fdf *fdf);
-void	ft_put_pixel(t_fdf *data, int x, int y, int color);
+void				ft_err_exit(char *err);
+void				ft_read_argv(t_fdf *data, int argc, char **argv);
+int					ft_read(int fd, t_fdf **data, t_list *income, int ret);
+void				ft_draw(t_fdf *data);
+void				ft_rotate(t_fdf *data);
+void				ft_rotate_x(t_fdf *data, int i, int j);
+void				ft_rotate_y(t_fdf *data, int i, int j);
+void				ft_rotate_z(t_fdf *data, int i, int j);
+void				ft_projection(t_fdf *data, float *h, float *w, float z);
+void				ft_get_tab(t_fdf *data, int ini);
+t_fdf				*ft_data_ini(void);
+void				ft_data_delete(t_fdf *data);
+void				ft_get_in_tab(t_list *income, t_fdf *data);
+void				ft_put_image(t_fdf *data);
+void				ft_put_pixel(t_fdf *data, int x, int y, int color);
 
 #endif
