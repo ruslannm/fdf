@@ -6,7 +6,7 @@
 #    By: rgero <rgero@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/13 15:46:56 by rgero             #+#    #+#              #
-#    Updated: 2020/02/21 17:04:11 by rgero            ###   ########.fr        #
+#    Updated: 2020/02/21 17:16:28 by rgero            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = fdf
 
 CC = gcc
 CFLAGS = -c -Wall -Wextra -Werror
-FRAMEWORKS = -framework OpenGL -framework AppKit
+FW = -framework OpenGL -framework AppKit
 
 SRC_PATH = srcs
 SRC_NAME = main.c ft_read.c ft_draw.c ft_rotate.c ft_tab.c\
@@ -34,15 +34,14 @@ LIB_NAME = libft.a
 LIBMLX_PATH = minilibx_macos/
 LIBMLX_NAME = libmlx.a
 
-# INCLUDES = includes
-
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re libft libmlx
 
 all: $(NAME)
 
-$(NAME): $(OBJ) libft libmlx
-	$(CC) -o $@ $(OBJ) -L $(LIB_PATH)/ -lft -L $(LIBMLX_PATH)/ -lmlx\
-	$(FRAMEWORKS)
+$(NAME): $(OBJ)
+	make -C $(LIB_PATH)
+	make -C $(LIBMLX_PATH)
+	$(CC) $(OBJ) -L $(LIB_PATH)/ -lft -L $(LIBMLX_PATH)/ -lmlx	$(FW) -o $@
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 	@/bin/mkdir -p $(OBJ_PATH)
