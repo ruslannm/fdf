@@ -6,7 +6,7 @@
 #    By: rgero <rgero@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/13 15:46:56 by rgero             #+#    #+#              #
-#    Updated: 2020/02/21 16:57:48 by rgero            ###   ########.fr        #
+#    Updated: 2020/02/21 17:04:11 by rgero            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,13 +40,13 @@ LIBMLX_NAME = libmlx.a
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	$(CC) $< -o $(OBJ) -L $(LIB_PATH)/ -lft -L $(LIBMLX_PATH)/ -lmlx $(FRAMEWORKS)
+$(NAME): $(OBJ) libft libmlx
+	$(CC) -o $@ $(OBJ) -L $(LIB_PATH)/ -lft -L $(LIBMLX_PATH)/ -lmlx\
+	$(FRAMEWORKS)
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 	@/bin/mkdir -p $(OBJ_PATH)
 	$(CC) $(CFLAGS) $(INCLUDES) $< -o $@
-#	$(CC) $(CFLAGS) -I $(INCLUDES) -I $(LIB_PATH) $< -o $@
 
 libft:
 	make -C $(LIB_PATH)
