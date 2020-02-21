@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 18:00:01 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/21 15:03:30 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/21 16:25:52 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_del(void *content, size_t len)
 
 void	ft_read_argv(t_fdf *data, int argc, char **argv)
 {
-	if (4 == argc)
+	if (4 == argc )
 	{
 		data->case_size = ft_atoi(argv[2]);
 		if (!data->case_size)

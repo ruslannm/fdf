@@ -6,56 +6,60 @@
 #    By: rgero <rgero@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/13 15:46:56 by rgero             #+#    #+#              #
-#    Updated: 2020/02/21 15:10:53 by rgero            ###   ########.fr        #
+#    Updated: 2020/02/21 16:57:48 by rgero            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fdf
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -c -Wall -Wextra -Werror
 FRAMEWORKS = -framework OpenGL -framework AppKit
 
-SRC_PATH = ./srcs/
+SRC_PATH = srcs
 SRC_NAME = main.c ft_read.c ft_draw.c ft_rotate.c ft_tab.c\
 	ft_projection.c ft_image.c
-SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
+SRC = $(addprefix $(SRC_PATH)/, $(SRC_NAME))
 
-OBJ_PATH = ./srcs/
+OBJ_PATH = obj
 OBJ_NAME = $(SRC_NAME:.c=.o)
-OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))cd 
+OBJ = $(addprefix $(OBJ_PATH)/, $(OBJ_NAME)) 
 
-INC_PATH = ./libft/ ./minilibx_macos/ ./includes
-INC = $(addprefix -I, $(INC_PATH))
+INCLUDES_PATH = includes libft
+INCLUDES = $(addprefix -I, $(INCLUDES_PATH))
 
-#LIB_PATH = libft/
-#LIB_NAME = libft.a
+LIB_PATH = libft
+LIB_NAME = libft.a
 
-INCLUDES = libft/libft.a minilibx_macos/libmlx.a
+LIBMLX_PATH = minilibx_macos/
+LIBMLX_NAME = libmlx.a
+
+# INCLUDES = includes
 
 .PHONY: all clean fclean re
 
-all:
-	make -C libft/ all
-	make -C minilibx_macos/ all
-	$(CC) $(SRC) -o $(NAME) $(CFLAGS) $(INC) $(INCLUDES) $(FRAMEWORKS)
+all: $(NAME)
 
-#all: $(NAME)
+$(NAME): $(OBJ)
+	$(CC) $< -o $(OBJ) -L $(LIB_PATH)/ -lft -L $(LIBMLX_PATH)/ -lmlx $(FRAMEWORKS)
 
-#$(NAME): $(LIB_PATH)$(LIB_NAME) $(OBJ_NAME)
-#	$(CC) -o $(NAME)  $(OBJ_NAME) -L $(LIB_PATH) -lft
+$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
+	@/bin/mkdir -p $(OBJ_PATH)
+	$(CC) $(CFLAGS) $(INCLUDES) $< -o $@
+#	$(CC) $(CFLAGS) -I $(INCLUDES) -I $(LIB_PATH) $< -o $@
 
-%.o: %.c $(NAME).h
-	$(CC) $(CFLAGS) -I $(INC_PATH) -o $@  -c $<
+libft:
+	make -C $(LIB_PATH)
 
-#$(LIB_PATH)$(LIB_NAME):
-#	make -C $(LIB_PATH)
+libmlx:
+	make -C $(LIBMLX_PATH)
 
-#clean:
-#	/bin/rm -f $(OBJ)
-#	make -C $(LIB_PATH) clean
-#fclean: clean
-#	/bin/rm -f $(NAME)
-#	/bin/rm -f $(LIB_PATH)$(LIB_NAME)
+clean:
+	/bin/rm -rf $(OBJ_PATH)
+	make -C $(LIB_PATH) clean
+
+fclean: clean
+	/bin/rm -f $(NAME)
+	make -C $(LIB_PATH) fclean
 	
-#re: fclean all
+re: fclean all

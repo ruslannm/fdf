@@ -6,7 +6,7 @@
 /*   By: rgero <rgero@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:15:31 by rgero             #+#    #+#             */
-/*   Updated: 2020/02/21 15:08:36 by rgero            ###   ########.fr       */
+/*   Updated: 2020/02/21 16:01:28 by rgero            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int		main(int argc, char **argv)
 	int		fd;
 	t_fdf	*data;
 
-	if (argc != 2)
+	if (!(2 == argc || 4 == argc))
 		ft_err_exit("usage: ./fdf <filename> [case_size z_size]");
 	if ((fd = open(argv[1], O_RDONLY | O_DIRECTORY)) > 0)
 		ft_err_exit("No data found.");
